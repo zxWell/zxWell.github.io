@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лерочка — страница 3</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff4d4d'/%3E%3Cstop offset='50%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ff4d4d'/%3E%3C/linearGradient%3E%3Ccircle cx='50' cy='35' r='20' fill='url(%23g)'/%3E%3Ccircle cx='30' cy='45' r='20' fill='url(%23g)'/%3E%3Cpath d='M25 50 Q40 80 50 90 Q60 80 75 50' fill='url(%23g)'/%3E%3Ctext x='50' y='95' font-size='12' text-anchor='middle' fill='%23ff4d4d' font-family='Arial'%3E🌹%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="css.css">
+    
+    <style>
+        /* Специальные стили для третьей страницы */
+        .page3-title {
+            font-size: 48px;
+            color: #ff9f4d;
+            margin-bottom: 30px;
+            text-align: center;
+            text-transform: lowercase;
+            font-weight: 700;
+            width: 100%;
+            animation: titleGlowOrange 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlowOrange {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 159, 77, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 159, 77, 0.6);
+            }
+        }
+        
+        /* Текстуха по центру - другой цвет */
+        .texture-block-page3 {
+            background: #ffe6cc;
+            border-radius: 40px;
+            padding: 80px 40px;
+            margin: 30px 0;
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: #b3541c;
+            box-shadow: inset 0 0 0 3px #ffb380, 0 15px 25px rgba(255, 128, 0, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            border: 2px solid #ffb380;
+        }
+        
+        .texture-block-page3:hover {
+            transform: scale(1.02) rotate(0.5deg);
+            background: #ffd9b3;
+        }
+        
+        .texture-block-page3:active {
+            transform: scale(0.97);
+        }
+        
+        /* Стили для текста внутри блока */
+        .texture-line-page3 {
+            font-size: 56px;
+            line-height: 1.4;
+            color: #b3541c;
+            font-weight: 700;
+        }
+        
+        /* Текст по углам - новый дизайн */
+        .corner-text-page3 {
+            position: absolute;
+            font-size: 22px;
+            color: #b3541c;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 24px;
+            border-radius: 30px 10px 30px 10px;
+            box-shadow: 0 6px 15px rgba(255, 128, 0, 0.2);
+            pointer-events: none;
+            border: 2px dashed #ff9933;
+            transform: rotate(-1deg);
+        }
+        
+        .corner-tl-page3 {
+            top: 25px;
+            left: 25px;
+            transform: rotate(-2deg);
+        }
+        
+        .corner-tr-page3 {
+            top: 25px;
+            right: 25px;
+            transform: rotate(2deg);
+        }
+        
+        .corner-bl-page3 {
+            bottom: 25px;
+            left: 25px;
+            transform: rotate(2deg);
+        }
+        
+        .corner-br-page3 {
+            bottom: 25px;
+            right: 25px;
+            transform: rotate(-2deg);
+        }
+        
+        /* Стили для блока с фотографией - изменен */
+        .photo-section-page3 {
+            display: flex;
+            gap: 30px;
+            margin: 40px 0;
+            align-items: center;
+            background: rgba(255, 159, 77, 0.1);
+            padding: 25px;
+            border-radius: 50px;
+        }
+        
+        .small-photo-page3 {
+            flex: 1;
+            aspect-ratio: 1/1;
+            border-radius: 40px 15px 40px 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px rgba(255, 128, 0, 0.4);
+            cursor: pointer;
+            border: 3px solid #ffb380;
+        }
+        
+        .small-photo-page3 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .small-photo-page3:hover img {
+            transform: scale(1.15) rotate(2deg);
+        }
+        
+        .photo-text-page3 {
+            flex: 2;
+            font-size: 26px;
+            color: #b3541c;
+            line-height: 1.6;
+        }
+        
+        .photo-text-page3 p {
+            margin: 15px 0;
+            padding: 12px 25px;
+            background: rgba(255, 159, 77, 0.15);
+            border-radius: 40px 10px 40px 10px;
+            transition: all 0.3s ease;
+            border: 2px solid #ffb380;
+            font-weight: 600;
+        }
+        
+        .photo-text-page3 p:hover {
+            background: rgba(255, 159, 77, 0.3);
+            transform: translateX(15px) scale(1.02);
+            border-color: #ff8000;
+        }
+        
+        /* Контейнер для кнопок */
+        .buttons-container-page3 {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Кнопки в оранжевой теме */
+        .back-btn-page3 {
+            background: #ff9933;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 28px;
+            font-weight: 600;
+            border-radius: 40px 15px 40px 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #b35900;
+            flex: 1;
+            max-width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .back-btn-page3:hover {
+            background: #ffaa4d;
+            transform: translateY(-3px) rotate(-1deg);
+            box-shadow: 0 8px 0 #b35900;
+        }
+        
+        .back-btn-page3:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #b35900;
+        }
+        
+        .next-btn-page3 {
+            background: #cc7a2d;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 28px;
+            font-weight: 600;
+            border-radius: 15px 40px 15px 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #804d1a;
+            flex: 2;
+            max-width: 500px;
+        }
+        
+        .next-btn-page3:hover {
+            background: #d88c42;
+            transform: translateY(-3px) rotate(1deg);
+            box-shadow: 0 8px 0 #804d1a;
+        }
+        
+        .next-btn-page3:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #804d1a;
+        }
+        
+        /* Подпись в оранжевом стиле */
+        .footer-note-page3 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 28px;
+            color: #ff8000;
+            font-weight: 600;
+            animation: glowOrange 2s ease-in-out infinite;
+            padding: 20px;
+            background: rgba(255, 159, 77, 0.1);
+            border-radius: 50px 20px 50px 20px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #ffb380;
+        }
+        
+        @keyframes glowOrange {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 128, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 128, 0, 0.8);
+            }
+        }
+        
+        /* Декоративные элементы */
+        .decoration-page3 {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .page3-title {
+                font-size: 36px;
+            }
+            
+            .texture-block-page3 {
+                font-size: 36px;
+                padding: 60px 20px;
+                min-height: 280px;
+            }
+            
+            .texture-line-page3 {
+                font-size: 42px;
+            }
+            
+            .corner-text-page3 {
+                font-size: 18px;
+                padding: 8px 16px;
+            }
+            
+            .photo-section-page3 {
+                flex-direction: column;
+            }
+            
+            .photo-text-page3 {
+                font-size: 22px;
+            }
+            
+            .buttons-container-page3 {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .back-btn-page3, .next-btn-page3 {
+                font-size: 22px;
+                padding: 16px 30px;
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .footer-note-page3 {
+                font-size: 22px;
+            }
+        }
+
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .flower {
+            position: fixed;
+            bottom: -50px;
+            font-size: 24px;
+            z-index: 9999;
+            pointer-events: none; /* чтоб цветы не мешали кликать по сайту */
+            user-select: none; /* чтоб нельзя было выделить */
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: 110vh; /* вылет сверху ЗА страницей */
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                bottom: -50px;
+                transform: translateX(20px) rotate(360deg); /* падают и крутяца */
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон с плавающими сердечками (розовый, но можно оставить) -->
+    <div class="background-hearts"></div>
+
+    <div class="container">
+        <!-- Заголовок в оранжевой теме -->
+        <h1 class="page3-title">моя любовь 🧡</h1>
+
+        <!-- Основной блок с текстом - оранжевая версия -->
+        <div class="texture-block-page3" id="mainTexturePage3">
+            <!-- Текст по углам в новом стиле -->
+            <span class="corner-text-page3 corner-tl-page3">✨ мечты</span>
+            <span class="corner-text-page3 corner-tr-page3">🌟 надежды</span>
+            <span class="corner-text-page3 corner-bl-page3">💫 счастье</span>
+            <span class="corner-text-page3 corner-br-page3">⭐ любовь</span>
+            
+            <!-- Центральный текст -->
+            <div class="texture-line-page3">навсегда</div>
+        </div>
+
+        <!-- Блок с фото в оранжевом стиле -->
+        <div class="photo-section-page3">
+            <div class="small-photo-page3" onclick="createOrangeExplosion(event)">
+                <img src="3.jpg" alt="Лерочка" id="page3Photo">
+            </div>
+            <div class="photo-text-page3">
+                <p>🧡 ты мой свет</p>
+                <p>⭐ моя радость</p>
+                <p>🌟 мое вдохновение</p>
+            </div>
+        </div>
+
+        <!-- Контейнер с кнопками в оранжевом стиле -->
+        <div class="buttons-container-page3">
+            <!-- Кнопка назад -->
+            <button class="back-btn-page3" onclick="window.location.href='page2.html'">
+                ← назад 🧡
+            </button>
+            
+            <!-- Кнопка вперед -->
+            <button class="next-btn-page3" onclick="window.location.href='page4.html'">
+                дальше ⭐
+            </button>
+        </div>
+
+        <!-- Подпись в оранжевом стиле -->
+        <div class="footer-note-page3">
+            Лерочка, ты лучше всех! 🧡
+        </div>
+    </div>
+
+    <script>
+        // Функция для создания оранжевого взрыва
+        function createOrangeExplosion(event) {
+            const emojis = ['🧡', '⭐', '🌟', '💫', '✨', '☀️', '🌞', '🔥', '🧡', '⭐'];
+            
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-explosion';
+                    
+                    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    heart.textContent = randomEmoji;
+                    
+                    const rect = event.target.getBoundingClientRect();
+                    heart.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 250) + 'px';
+                    heart.style.top = (rect.top + rect.height/2 + (Math.random() - 0.5) * 180) + 'px';
+                    heart.style.fontSize = (15 + Math.random() * 35) + 'px';
+                    heart.style.color = '#ff8000';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1300);
+                }, i * 20);
+            }
+        }
+
+        // Функция для большого взрыва
+        function createBigOrangeExplosion() {
+            const emojis = ['🧡', '⭐', '🌟', '💫', '✨', '☀️', '🌞', '🔥', '🧡', '⭐', '💥', '🎆'];
+            
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-explosion';
+                    
+                    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    heart.textContent = randomEmoji;
+                    
+                    const texture = document.getElementById('mainTexturePage3');
+                    const rect = texture.getBoundingClientRect();
+                    
+                    heart.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 400) + 'px';
+                    heart.style.top = (rect.top + rect.height/2 + (Math.random() - 0.5) * 300) + 'px';
+                    heart.style.fontSize = (20 + Math.random() * 50) + 'px';
+                    heart.style.color = '#ff8000';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1600);
+                }, i * 10);
+            }
+            
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 100, 50, 100]);
+            }
+        }
+
+        // Добавляем обработчики событий
+        document.addEventListener('DOMContentLoaded', function() {
+            // Клик на центральный блок
+            const mainTexture = document.getElementById('mainTexturePage3');
+            mainTexture.addEventListener('click', function(e) {
+                createBigOrangeExplosion();
+                
+                this.style.transform = 'scale(0.96)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                setTimeout(() => {
+                    alert('🧡 Я готов сделать всë, пойти на многое, чтобы у тебя всë было хорошо!\n\nДа, иногда не отвечаю, я занят, но всегда думаю о тебе и стараюсь закончить все свои дела как можно быстрее.\nЯ люблю тебя и буду любить всегда! 🧡');
+                }, 400);
+            });
+            
+            // Эффект появления
+            mainTexture.style.opacity = '0';
+            mainTexture.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                mainTexture.style.transition = 'all 0.6s ease';
+                mainTexture.style.opacity = '1';
+                mainTexture.style.transform = 'scale(1)';
+            }, 100);
+            
+            // Анимация для угловых текстов
+            const corners = document.querySelectorAll('.corner-text-page3');
+            corners.forEach((corner, index) => {
+                corner.style.opacity = '0';
+                corner.style.transition = 'all 0.5s ease';
+                setTimeout(() => {
+                    corner.style.opacity = '1';
+                }, 600 + index * 120);
+            });
+        });
+    </script>
+
+    <script>
+        const emojis = ["🌸", "🌹", "🌷", "🌺"];
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            flower.classList.add('flower');
+
+            flower.style.left = Math.random() * 100 + 'vw';
+
+            flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+
+            const duration = Math.random() * 5 + 5;
+            flower.style.animationDuration = duration + 's';
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+        // 800 - миллисекунды. Больше мс - реже падают.
+        setInterval(createFlower, 800); 
+    </script>
+</body>
+</html>

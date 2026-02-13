@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лерочка — страница 4</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff4d4d'/%3E%3Cstop offset='50%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ff4d4d'/%3E%3C/linearGradient%3E%3Ccircle cx='50' cy='35' r='20' fill='url(%23g)'/%3E%3Ccircle cx='30' cy='45' r='20' fill='url(%23g)'/%3E%3Cpath d='M25 50 Q40 80 50 90 Q60 80 75 50' fill='url(%23g)'/%3E%3Ctext x='50' y='95' font-size='12' text-anchor='middle' fill='%23ff4d4d' font-family='Arial'%3E🌹%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="css.css">
+    
+    <style>
+        /* Специальные стили для четвертой страницы (оранжевая тема как в page3) */
+        .page4-title {
+            font-size: 48px;
+            color: #ff9f4d;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: lowercase;
+            font-weight: 700;
+            width: 100%;
+            animation: titleGlowOrange 2s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlowOrange {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 159, 77, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 159, 77, 0.6);
+            }
+        }
+        
+        .page4-subtitle {
+            font-size: 32px;
+            color: #b3541c;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: lowercase;
+            background: rgba(255, 159, 77, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+            border: 2px dashed #ffb380;
+        }
+        
+        /* Сетка с кубиками */
+        .cubes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .cube {
+            background: #ffe6cc;
+            border-radius: 30px 10px 30px 10px;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: #b3541c;
+            box-shadow: inset 0 0 0 3px #ffb380, 0 10px 20px rgba(255, 128, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #ffb380;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .cube:hover {
+            transform: scale(1.05) rotate(1deg);
+            background: #ffd9b3;
+            box-shadow: 0 15px 30px rgba(255, 128, 0, 0.3);
+        }
+        
+        .cube:active {
+            transform: scale(0.95);
+        }
+        
+        .cube-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        }
+        
+        .cube-text {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+        
+        /* Специальный кубик во всю ширину */
+        .cube-large {
+            grid-column: span 3;
+            aspect-ratio: auto;
+            padding: 25px;
+            font-size: 28px;
+            background: linear-gradient(145deg, #ffe6cc, #ffd9b3);
+            border: 3px solid #ff9933;
+        }
+        
+        /* Блок с навигацией */
+        .navigation-section {
+            background: rgba(255, 159, 77, 0.1);
+            border-radius: 50px 20px 50px 20px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid #ffb380;
+        }
+        
+        .nav-title {
+            font-size: 36px;
+            color: #b3541c;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+            text-transform: lowercase;
+        }
+        
+        .nav-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .nav-item {
+            background: #ffe6cc;
+            border-radius: 40px 10px 40px 10px;
+            padding: 18px 25px;
+            font-size: 24px;
+            color: #b3541c;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid #ffb380;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 0 #cc7a2d;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-3px) translateX(3px);
+            background: #ffd9b3;
+            box-shadow: 0 8px 0 #cc7a2d;
+        }
+        
+        .nav-item:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc7a2d;
+        }
+        
+        .nav-emoji {
+            font-size: 30px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        /* Контейнер для кнопок */
+        .buttons-container-page4 {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .back-btn-page4 {
+            background: #ff9933;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 28px;
+            font-weight: 600;
+            border-radius: 40px 15px 40px 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #b35900;
+            flex: 1;
+            max-width: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .back-btn-page4:hover {
+            background: #ffaa4d;
+            transform: translateY(-3px) rotate(-1deg);
+            box-shadow: 0 8px 0 #b35900;
+        }
+        
+        .next-btn-page4 {
+            background: #cc7a2d;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 28px;
+            font-weight: 600;
+            border-radius: 15px 40px 15px 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #804d1a;
+            flex: 2;
+            max-width: 500px;
+        }
+        
+        .next-btn-page4:hover {
+            background: #d88c42;
+            transform: translateY(-3px) rotate(1deg);
+            box-shadow: 0 8px 0 #804d1a;
+        }
+        
+        /* Подпись */
+        .footer-note-page4 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 28px;
+            color: #ff8000;
+            font-weight: 600;
+            animation: glowOrange 2s ease-in-out infinite;
+            padding: 20px;
+            background: rgba(255, 159, 77, 0.1);
+            border-radius: 50px 20px 50px 20px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #ffb380;
+        }
+        
+        @keyframes glowOrange {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 128, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(255, 128, 0, 0.8);
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .page4-title {
+                font-size: 36px;
+            }
+            
+            .page4-subtitle {
+                font-size: 24px;
+            }
+            
+            .cubes-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .cube-large {
+                grid-column: span 2;
+            }
+            
+            .cube {
+                padding: 20px 15px;
+                font-size: 20px;
+            }
+            
+            .cube-emoji {
+                font-size: 30px;
+            }
+            
+            .nav-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-item {
+                font-size: 20px;
+                padding: 15px 20px;
+            }
+            
+            .buttons-container-page4 {
+                flex-direction: column;
+            }
+            
+            .back-btn-page4, .next-btn-page4 {
+                font-size: 22px;
+                padding: 16px 30px;
+                max-width: 100%;
+            }
+            
+            .footer-note-page4 {
+                font-size: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cubes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cube-large {
+                grid-column: span 1;
+            }
+            
+            .cube {
+                aspect-ratio: auto;
+                min-height: 150px;
+            }
+        }
+
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        .flower {
+            position: fixed;
+            bottom: -50px;
+            font-size: 24px;
+            z-index: 9999;
+            pointer-events: none; /* чтоб цветы не мешали кликать по сайту */
+            user-select: none; /* чтоб нельзя было выделить */
+            animation-name: floatUp;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: 110vh; /* вылет сверху ЗА страницей */
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                bottom: -50px;
+                transform: translateX(20px) rotate(360deg); /* падают и крутяца */
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон с плавающими сердечками -->
+    <div class="background-hearts"></div>
+
+    <div class="container">
+        <!-- Заголовок как на скриншоте -->
+        <h1 class="page4-title">шек 🧡</h1>
+        
+        <!-- Подзаголовок -->
+        <div class="page4-subtitle">в кубиках тоже текст</div>
+
+        <!-- Сетка с кубиками (плюсы встречаться с ней) -->
+        <div class="cubes-grid">
+            <!-- Первый ряд кубиков -->
+            <div class="cube" onclick="showMessage('🥰 Гулять вместе')">
+                <span class="cube-emoji">🌳</span>
+                <span class="cube-text">гулять в парке</span>
+            </div>
+            <div class="cube" onclick="showMessage('🍿 Смотреть кино')">
+                <span class="cube-emoji">🎬</span>
+                <span class="cube-text">кино дома</span>
+            </div>
+            <div class="cube" onclick="showMessage('☕ Пить кофе')">
+                <span class="cube-emoji">☕</span>
+                <span class="cube-text">пить кофе</span>
+            </div>
+            
+            <!-- Второй ряд -->
+            <div class="cube" onclick="showMessage('🍕 Вкусно кушать')">
+                <span class="cube-emoji">🍕</span>
+                <span class="cube-text">вкусно кушать</span>
+            </div>
+            <div class="cube" onclick="showMessage('🎮 Играть вместе')">
+                <span class="cube-emoji">🎮</span>
+                <span class="cube-text">играть</span>
+            </div>
+            <div class="cube" onclick="showMessage('📚 Читать')">
+                <span class="cube-emoji">📚</span>
+                <span class="cube-text">читать</span>
+            </div>
+            
+            <!-- Третий ряд -->
+            <div class="cube" onclick="showMessage('🎨 Рисовать')">
+                <span class="cube-emoji">🎨</span>
+                <span class="cube-text">рисовать</span>
+            </div>
+            <div class="cube" onclick="showMessage('🎵 Слушать музыку')">
+                <span class="cube-emoji">🎵</span>
+                <span class="cube-text">музыка</span>
+            </div>
+            <div class="cube" onclick="showMessage('📸 Фото')">
+                <span class="cube-emoji">📸</span>
+                <span class="cube-text">фото</span>
+            </div>
+            
+            <!-- Большой кубик во всю ширину -->
+            <div class="cube cube-large" onclick="showMessage('🧡 Лерочка, я тебя люблю!')">
+                <span class="cube-emoji">🧡</span>
+                <span class="cube-text">каждый день с тобой — праздник!</span>
+            </div>
+        </div>
+
+        <!-- Блок навигации как на скриншоте -->
+        <div class="navigation-section">
+            <div class="nav-title">навигация 🧭</div>
+            <div class="nav-list">
+                <div class="nav-item" onclick="window.location.href='page1.html'">
+                    <span class="nav-emoji">🏠</span>
+                    <span>хоум</span>
+                </div>
+                <div class="nav-item" onclick="showPages()">
+                    <span class="nav-emoji">📄</span>
+                    <span>страницы</span>
+                </div>
+                <div class="nav-item" onclick="showMessage('🧡 сортировка по любви')">
+                    <span class="nav-emoji">🔀</span>
+                    <span>сортировка</span>
+                </div>
+                <div class="nav-item" onclick="showMessage('🔍 ищу тебя везде')">
+                    <span class="nav-emoji">🔍</span>
+                    <span>поиск</span>
+                </div>
+                <div class="nav-item" onclick="showMessage('💾 сохранить в сердечке')">
+                    <span class="nav-emoji">💾</span>
+                    <span>сохранить</span>
+                </div>
+                <div class="nav-item" onclick="showMessage('❌ удалить грусть')">
+                    <span class="nav-emoji">🗑️</span>
+                    <span>удалить</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Контейнер с кнопками -->
+        <div class="buttons-container-page4">
+            <button class="back-btn-page4" onclick="window.location.href='page3.html'">
+                ← назад 🧡
+            </button>
+            <button class="next-btn-page4" onclick="window.location.href='page5.html'">
+                дальше ⭐
+            </button>
+        </div>
+
+        <!-- Подпись -->
+        <div class="footer-note-page4">
+            Лерочка, с тобой каждый день как сказка! 🧡
+        </div>
+    </div>
+
+    <script>
+        // Функция для показа сообщения
+        function showMessage(msg) {
+            // Создаем маленький взрыв
+            createMiniExplosion(msg);
+            
+            // Показываем сообщение через алерт
+            setTimeout(() => {
+                alert('🧡 ' + msg + ' 🧡');
+            }, 200);
+        }
+        
+        // Функция для показа страниц
+        function showPages() {
+            const pages = ['Где мы познакомились', 'Где мы гуляли', 'Где мы вместе', 'Где ты надеваешь кольцо', 'Где я тебя люблю'];
+            const emojis = ['❤️', '💕', '🧡', '💛', '💚'];
+            let message = 'наши странички:\n';
+            
+            pages.forEach((page, index) => {
+                message += `${emojis[index]} ${page}\n`;
+            });
+            
+            alert(message);
+        }
+
+        // Функция для создания взрыва
+        function createMiniExplosion(reason) {
+            const emojis = ['🧡', '⭐', '🌟', '💫', '✨', '☀️', '🌞', '🔥', '🧡', '⭐', '💥', '🎆'];
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-explosion';
+                    
+                    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    heart.textContent = randomEmoji;
+                    
+                    heart.style.left = (event ? event.clientX : window.innerWidth/2) + (Math.random() - 0.5) * 200 + 'px';
+                    heart.style.top = (event ? event.clientY : window.innerHeight/2) + (Math.random() - 0.5) * 150 + 'px';
+                    heart.style.fontSize = (15 + Math.random() * 30) + 'px';
+                    heart.style.color = '#ff8000';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1200);
+                }, i * 30);
+            }
+        }
+
+        // Добавляем обработчики событий
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимация появления кубиков
+            const cubes = document.querySelectorAll('.cube');
+            cubes.forEach((cube, index) => {
+                cube.style.opacity = '0';
+                cube.style.transform = 'scale(0.8)';
+                cube.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    cube.style.opacity = '1';
+                    cube.style.transform = 'scale(1)';
+                }, 200 + index * 50);
+            });
+            
+            // Анимация для навигации
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                item.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, 1000 + index * 70);
+            });
+        });
+    </script>
+
+    <script>
+        const emojis = ["🌸", "🌹", "🌷", "🌺"];
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            flower.classList.add('flower');
+
+            flower.style.left = Math.random() * 100 + 'vw';
+
+            flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+
+            const duration = Math.random() * 5 + 5;
+            flower.style.animationDuration = duration + 's';
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+        // 800 - миллисекунды. Больше мс - реже падают.
+        setInterval(createFlower, 800); 
+    </script>
+</body>
+</html>
