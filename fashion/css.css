@@ -20,6 +20,14 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
@@ -27,21 +35,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     color: var(--text-main);
+    padding: 10px;
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
 }
 
-/* Корпус iPhone 14 */
+/* Корпус iPhone 14 - адаптивный для мобильных */
 .iphone-14 {
-    width: 390px;
-    height: 844px;
+    width: 100%;
+    max-width: 390px;
+    height: auto;
+    min-height: 700px;
+    max-height: 844px;
     background: var(--tg-bg);
-    border-radius: 54px;
+    border-radius: 44px;
     position: relative;
-    box-shadow: 0 0 0 12px #222, 0 0 0 15px #444, 0 30px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 0 0 6px #222, 0 0 0 8px #444, 0 20px 40px rgba(0,0,0,0.5);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 400px) {
+    .iphone-14 {
+        max-width: 360px;
+        border-radius: 34px;
+    }
+}
+
+/* Для очень высоких экранов */
+@media (min-height: 900px) {
+    .iphone-14 {
+        max-height: 900px;
+    }
 }
 
 /* Dynamic Island / Notch */
@@ -58,26 +87,69 @@ body {
 }
 
 /* Header */
-.header {
+.header, .header-with-back {
     padding-top: 50px;
     padding-bottom: 10px;
     background: var(--header-bg);
     backdrop-filter: var(--liquid-blur);
     -webkit-backdrop-filter: var(--liquid-blur);
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    text-align: center;
     z-index: 10;
     flex-shrink: 0;
 }
 
-.header .name { 
+.header {
+    text-align: center;
+}
+
+.header-with-back {
+    display: flex;
+    align-items: center;
+}
+
+.header .name, .header-center .name { 
     font-weight: 600; 
     font-size: 17px; 
     color: #000;
 }
-.header .status { 
+
+.header .status, .header-center .status { 
     font-size: 12px; 
     color: var(--tg-gray);
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+}
+
+.back-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.back-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.back-button:active {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+}
+
+.back-arrow {
+    font-size: 28px;
+    color: var(--tg-blue);
+    font-weight: 400;
+    line-height: 1;
 }
 
 /* Chat Area - скроллится */
@@ -86,20 +158,33 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    justify-content: flex-end; /* Важно: прижимает содержимое к низу */
     overflow-y: auto;
+    overflow-x: hidden;
     background: var(--chat-bg);
     min-height: 0;
+    -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+    scroll-behavior: smooth;
+}
+
+/* Обертка для сообщений */
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
 }
 
 .msg {
-    max-width: 75%;
+    max-width: 80%;
     padding: 10px 14px;
     border-radius: 18px;
     font-size: 15px;
     line-height: 1.4;
     position: relative;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .msg.in {
@@ -114,6 +199,54 @@ body {
     align-self: flex-end;
     border-bottom-right-radius: 4px;
     color: #000;
+}
+
+/* Индикатор печатания */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: #e9e9e9;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    max-width: 70px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    align-self: flex-start;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: #8e8e93;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-8px); background: #007aff; }
+}
+
+/* Анимация появления новых сообщений */
+.msg {
+    animation: messageAppear 0.3s ease-out;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Input Field */
@@ -138,6 +271,8 @@ body {
     color: #000;
     border: none;
     outline: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
 .input-field::placeholder {
@@ -153,6 +288,11 @@ body {
     height: 44px;
     z-index: 101;
     background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
 }
 
 .time {
@@ -189,7 +329,7 @@ body {
     background: #000;
 }
 
-/* Скроллбар */
+/* Кастомный скроллбар */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -203,38 +343,82 @@ body {
     border-radius: 4px;
 }
 
-/* Добавьте это в ваш css.css или оставьте в <style> */
-
-/* Chat Area - скроллится */
-.chat-container {
-    flex: 1;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Важно: прижимает содержимое к низу */
-    overflow-y: auto;
-    background: var(--chat-bg);
-    min-height: 0;
+/* Для Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #c4c4c4 transparent;
 }
 
-/* Обертка для сообщений */
-.messages-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* Медиа-запросы для разных устройств */
+@media (max-width: 380px) {
+    .iphone-14 {
+        max-width: 340px;
+        border-radius: 30px;
+    }
+    
+    .msg {
+        max-width: 85%;
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .header .name, .header-center .name {
+        font-size: 16px;
+    }
+    
+    .header .status, .header-center .status {
+        font-size: 11px;
+    }
+    
+    .input-field {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
 }
 
-/* Индикатор печатания */
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 12px 16px;
-    background: #e9e9e9;
-    border-radius: 18px;
-    border-bottom-left-radius: 4px;
-    max-width: 70px;
-    margin-top: 8px;
-    margin-bottom: 0;
-    align-self: flex-start;
+@media (max-width: 320px) {
+    .iphone-14 {
+        max-width: 300px;
+        border-radius: 25px;
+    }
+    
+    .notch {
+        width: 100px;
+        height: 30px;
+    }
+    
+    .back-button {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .back-arrow {
+        font-size: 24px;
+    }
+}
+
+/* Для устройств с touch экраном */
+@media (hover: none) and (pointer: coarse) {
+    .back-button:hover {
+        background-color: transparent;
+    }
+    
+    .back-button:active {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Ландшафтная ориентация */
+@media (orientation: landscape) and (max-height: 500px) {
+    .iphone-14 {
+        max-height: 400px;
+    }
+    
+    .notch {
+        display: none;
+    }
+    
+    .header, .header-with-back {
+        padding-top: 10px;
+    }
 }
