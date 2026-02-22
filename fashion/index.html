@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Привеееееттт</title>
+
+    <!-- Favicon в виде сердца и розы -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff4d4d'/%3E%3Cstop offset='50%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ff4d4d'/%3E%3C/linearGradient%3E%3Ccircle cx='50' cy='35' r='20' fill='url(%23g)'/%3E%3Ccircle cx='30' cy='45' r='20' fill='url(%23g)'/%3E%3Cpath d='M25 50 Q40 80 50 90 Q60 80 75 50' fill='url(%23g)'/%3E%3Ctext x='50' y='95' font-size='12' text-anchor='middle' fill='%23ff4d4d' font-family='Arial'%3E🌹%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="css.css">
+    
+    <style>
+        /* Индикатор печатания */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 16px;
+            background: #e9e9e9;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 70px;
+            margin-top: 8px;
+            margin-bottom: 0;
+            align-self: flex-start;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #8e8e93;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); background: #007aff; }
+        }
+        
+        /* Анимация появления новых сообщений */
+        .msg {
+            animation: messageAppear 0.3s ease-out;
+        }
+        
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Контейнер для сообщений и индикатора */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Важно: прижимает содержимое к низу */
+        }
+        
+        /* Обертка для сообщений */
+        .messages-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="iphone-14">
+        <!-- Dynamic Island -->
+        <div class="notch"></div>
+        
+        <!-- Заголовок чата -->
+        <div class="header">
+            <div class="name">Тоня</div>
+            <div class="status">в сети</div>
+        </div>
+
+        <!-- Область сообщений -->
+        <div class="chat-container" id="chatContainer">
+            <!-- Обертка для всех сообщений (чтобы индикатор был после них) -->
+            <div class="messages-wrapper" id="messagesWrapper">
+                <div class="msg in">Доброе утро❤️</div>
+                <div class="msg out">доброе</div>
+                <div class="msg in">Лерааа</div>
+            </div>
+            
+            <!-- Индикатор печатания будет вставлен сюда скриптом -->
+        </div>
+
+        <!-- Поле ввода -->
+        <div class="input-bar">
+            <div class="input-field" id="display">Сообщение...</div>
+        </div>
+    </div>
+
+    <script>
+        // Массив с сообщениями для автоматической отправки
+        const autoMessages = [
+            "А я люблю тебя ❤️",
+            "Как твои дела?",
+            "Я скучаю по тебе очень:(",
+            "Что делаешь сейчас?",
+            "Обожаю тебя",
+            "Ты самая лучшая у меня!",
+            "💋",
+            "Милая моя",
+            "Созвончик?",
+            "Любовь ты моя❤️❤️"
+        ];
+        
+        let messageIndex = 0;
+        let typingInterval;
+        let isTyping = false;
+        
+        // Получаем контейнеры
+        const chatContainer = document.getElementById('chatContainer');
+        const messagesWrapper = document.getElementById('messagesWrapper');
+        
+        // Создаем индикатор печатания
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'typing-indicator';
+        typingIndicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+        typingIndicator.id = 'typingIndicator';
+        typingIndicator.style.display = 'none'; // Скрыт по умолчанию
+        
+        // Добавляем индикатор в chatContainer ПОСЛЕ messagesWrapper
+        chatContainer.appendChild(typingIndicator);
+        
+        // Автоматический скролл вниз при загрузке
+        window.addEventListener('load', function() {
+            if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        });
+
+        // Функция показа индикатора печатания
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'flex';
+            // Скроллим к индикатору
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        // Функция скрытия индикатора печатания
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+        
+        // Функция добавления нового сообщения
+        function addNewMessage() {
+            if (messageIndex >= autoMessages.length) {
+                messageIndex = 0; // Зацикливаем сообщения
+            }
+            
+            // Создаем новое сообщение
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'msg in';
+            messageDiv.textContent = autoMessages[messageIndex];
+            
+            // Добавляем сообщение в messagesWrapper (перед индикатором)
+            messagesWrapper.appendChild(messageDiv);
+            
+            // Скроллим вниз
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            messageIndex++;
+        }
+        
+        // Функция имитации печатания и отправки
+        function simulateTyping() {
+            if (isTyping) return;
+            
+            isTyping = true;
+            
+            // Показываем индикатор печатания
+            showTypingIndicator();
+            
+            // Через 2 секунды добавляем сообщение
+            setTimeout(() => {
+                hideTypingIndicator();
+                addNewMessage();
+                isTyping = false;
+            }, 2000);
+        }
+        
+        // Запускаем автоматическую отправку каждые 5 секунд
+        function startAutoMessages() {
+            // Первое сообщение через 1 секунду после загрузки
+            setTimeout(() => {
+                simulateTyping();
+            }, 1000);
+            
+            // Запускаем интервал
+            typingInterval = setInterval(() => {
+                simulateTyping();
+            }, 5000);
+        }
+        
+        // Останавливаем автоматическую отправку
+        function stopAutoMessages() {
+            if (typingInterval) {
+                clearInterval(typingInterval);
+            }
+            hideTypingIndicator();
+        }
+
+        // Запускаем автоматическую отправку
+        document.addEventListener('DOMContentLoaded', function() {
+            startAutoMessages();
+        });
+        
+        // Останавливаем при уходе со страницы
+        window.addEventListener('beforeunload', function() {
+            stopAutoMessages();
+        });
+    </script>
+</body>
+</html>

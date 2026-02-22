@@ -1,0 +1,516 @@
+/* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(145deg, #1a1e2b 0%, #2d3349 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start; /* Изменено с center на flex-start */
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-y: auto; /* Добавлено для скролла */
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    background: #f0f2f5;
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    margin: 20px auto; /* Добавлено для отступов */
+    overflow: visible; /* Чтобы контент не обрезался */
+}
+
+/* Заголовок */
+.title {
+    font-size: 48px;
+    font-weight: 800;
+    color: #1a1e2b;
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+    text-align: center;
+    width: 100%;
+    animation: titleGlow 2s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+    }
+}
+
+/* Основной контент - две колонки */
+.main-content {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: stretch;
+    flex-wrap: wrap; /* Добавлено для мобильных */
+}
+
+/* Левая и правая таблицы */
+.left-table,
+.right-table {
+    flex: 1;
+    display: flex;
+    min-width: 300px; /* Минимальная ширина */
+}
+
+/* Контейнер для содержимого таблиц */
+.table-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Стили для плейсхолдера ПНГШКИ */
+.png-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(45deg, #ffd7d7, #ffe6e6);
+    border-radius: 30px;
+    box-shadow: inset 0 0 0 2px #ffaaaa, 0 10px 20px rgba(255, 77, 77, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.png-placeholder::before {
+    content: "❤️";
+    position: absolute;
+    font-size: 100px;
+    opacity: 0.3;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.png-placeholder::after {
+    content: "🌹";
+    position: absolute;
+    font-size: 60px;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.5;
+    transform: rotate(-15deg);
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Стили для кнопки ПНГ+К НОПКА */
+.png-button {
+    background: #4a4f63;
+    color: white;
+    border: none;
+    padding: 0;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #2d3142;
+    overflow: hidden;
+}
+
+.png-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2d3142;
+}
+
+.png-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #2d3142;
+}
+
+/* Стиль для внутренней кнопки НАЖМИ!!! */
+.inner-click-btn {
+    width: 100%;
+    height: 100%;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.1s ease;
+    animation: softPulse 2s infinite;
+    border-radius: 50px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.inner-click-btn:hover {
+    background: #ff6666;
+    transform: scale(1.02);
+}
+
+.inner-click-btn:active {
+    background: #ff3333;
+    transform: scale(0.98);
+}
+
+@keyframes softPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.9;
+        background: #ff3333;
+    }
+}
+
+/* Эмодзи на кнопке */
+.emoji-text {
+    font-size: 28px;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+}
+
+/* Контейнер для текста в кнопке */
+.button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Для мобильных */
+}
+
+.main-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Стили для правой таблицы с текстухами */
+.right-table .table-container {
+    gap: 0;
+    border: 2px solid #b0b0b0;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #d9d9d9;
+    height: fit-content;
+}
+
+.texture-row {
+    padding: 25px 30px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1e2b;
+    text-align: left;
+    border-bottom: 2px solid #b0b0b0;
+    background-color: #e8e8e8;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.texture-row:hover {
+    background-color: #d0d0d0;
+    transform: translateX(5px);
+}
+
+.texture-row:last-child {
+    border-bottom: none;
+}
+
+/* Специальный стиль для важных дат */
+.texture-row.important {
+    background: linear-gradient(45deg, #ffd7d7, #ffe6e6);
+    font-weight: 700;
+    color: #ff4d4d;
+    border-left: 5px solid #ff4d4d;
+}
+
+/* Нижняя навигация */
+.bottom-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.next-btn {
+    background: #4a4f63;
+    color: white;
+    border: none;
+    padding: 18px 50px;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 #2d3142;
+}
+
+.next-btn:hover {
+    background: #5d637c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #2d3142;
+}
+
+.next-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #2d3142;
+}
+
+/* Стили для подвала */
+.footer-note {
+    text-align: center;
+    margin-top: 30px;
+    color: #ff4d4d;
+    font-size: 18px;
+    font-weight: 500;
+    animation: glow 2s ease-in-out infinite;
+    padding: 10px;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+    }
+}
+
+/* Стили для фона с сердечками */
+.background-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-heart {
+    position: absolute;
+    color: rgba(255, 77, 77, 0.1);
+    font-size: 40px;
+    user-select: none;
+    animation: float 20s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+    }
+}
+
+/* Стили для взрыва сердечек */
+.heart-explosion {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 24px;
+    animation: floatUp 1.5s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(20deg);
+    }
+}
+
+/* Анимация появления для строк */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 77, 77, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 77, 77, 0.5);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 77, 77, 0.8);
+}
+
+/* Для Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 77, 77, 0.5) rgba(255, 77, 77, 0.1);
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 30px;
+        border-radius: 30px;
+    }
+
+    .title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .main-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .left-table,
+    .right-table {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .png-button {
+        font-size: 20px;
+    }
+
+    .inner-click-btn {
+        font-size: 20px;
+        padding: 15px 25px;
+    }
+
+    .texture-row {
+        font-size: 24px;
+        padding: 20px 25px;
+    }
+
+    .next-btn {
+        font-size: 20px;
+        padding: 15px 40px;
+    }
+    
+    .emoji-text {
+        font-size: 24px;
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 25px;
+        margin: 10px auto;
+    }
+
+    .title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .png-button {
+        font-size: 18px;
+    }
+
+    .inner-click-btn {
+        font-size: 18px;
+        padding: 12px 20px;
+    }
+
+    .texture-row {
+        font-size: 20px;
+        padding: 15px 20px;
+    }
+
+    .png-placeholder::before {
+        font-size: 70px;
+    }
+    
+    .png-placeholder::after {
+        font-size: 40px;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .next-btn {
+        font-size: 18px;
+        padding: 12px 30px;
+        width: 100%;
+    }
+    
+    .emoji-text {
+        font-size: 22px;
+    }
+    
+    .footer-note {
+        font-size: 16px;
+    }
+    
+    .button-content {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 360px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .texture-row {
+        font-size: 18px;
+        padding: 12px 15px;
+    }
+    
+    .inner-click-btn {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+}

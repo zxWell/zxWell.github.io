@@ -1,0 +1,240 @@
+/* css.css - Telegram iOS 26 Белая тема */
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --liquid-blur: blur(20px);
+    --ios-blue: #007AFF;
+    --text-main: #000000;
+    --key-bg: rgba(255, 255, 255, 0.95);
+    --tg-bg: #ffffff;           /* Белый фон Telegram */
+    --tg-secondary: #f0f0f0;    /* Светло-серый для элементов */
+    --tg-green: #e5f6d3;        /* Светло-зеленый для исходящих */
+    --tg-blue: #007aff;         /* Синий Telegram */
+    --tg-gray: #8e8e93;         /* Серый для текста */
+    --chat-bg: #f0f0f0;         /* Шторка чата */
+    --header-bg: #e8e8e8;       /* Шторка заголовка (чуть темнее) */
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--text-main);
+}
+
+/* Корпус iPhone 14 */
+.iphone-14 {
+    width: 390px;
+    height: 844px;
+    background: var(--tg-bg);
+    border-radius: 54px;
+    position: relative;
+    box-shadow: 0 0 0 12px #222, 0 0 0 15px #444, 0 30px 60px rgba(0,0,0,0.5);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dynamic Island / Notch */
+.notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 35px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+/* Header */
+.header {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    background: var(--header-bg);
+    backdrop-filter: var(--liquid-blur);
+    -webkit-backdrop-filter: var(--liquid-blur);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.header .name { 
+    font-weight: 600; 
+    font-size: 17px; 
+    color: #000;
+}
+.header .status { 
+    font-size: 12px; 
+    color: var(--tg-gray);
+}
+
+/* Chat Area - скроллится */
+.chat-container {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    background: var(--chat-bg);
+    min-height: 0;
+}
+
+.msg {
+    max-width: 75%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.msg.in {
+    background: #e9e9e9;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    color: #000;
+}
+
+.msg.out {
+    background: var(--tg-green);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    color: #000;
+}
+
+/* Input Field */
+.input-bar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: var(--liquid-blur);
+    -webkit-backdrop-filter: var(--liquid-blur);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    flex-shrink: 0;
+}
+
+.input-field {
+    flex: 1;
+    background: #f2f2f7;
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #000;
+    border: none;
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: var(--tg-gray);
+}
+
+/* Status Bar (если используете) */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px 5px;
+    height: 44px;
+    z-index: 101;
+    background: transparent;
+}
+
+.time {
+    font-weight: 600;
+    font-size: 15px;
+    width: 50px;
+    color: #000;
+}
+
+.status-icons {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    width: 50px;
+    justify-content: flex-end;
+}
+
+/* Батарея */
+.battery {
+    width: 22px;
+    height: 11px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    position: relative;
+}
+
+.battery::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 3px;
+    width: 2px;
+    height: 4px;
+    background: #000;
+}
+
+/* Скроллбар */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+    border-radius: 4px;
+}
+
+/* Добавьте это в ваш css.css или оставьте в <style> */
+
+/* Chat Area - скроллится */
+.chat-container {
+    flex: 1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Важно: прижимает содержимое к низу */
+    overflow-y: auto;
+    background: var(--chat-bg);
+    min-height: 0;
+}
+
+/* Обертка для сообщений */
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Индикатор печатания */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: #e9e9e9;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    max-width: 70px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    align-self: flex-start;
+}

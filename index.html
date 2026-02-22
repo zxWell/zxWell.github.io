@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всё, что я делал</title>
+    
+    <!-- Favicon в виде сердца и розы -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff4d4d'/%3E%3Cstop offset='50%25' stop-color='%23ff6b6b'/%3E%3Cstop offset='100%25' stop-color='%23ff4d4d'/%3E%3C/linearGradient%3E%3Ccircle cx='50' cy='35' r='20' fill='url(%23g)'/%3E%3Ccircle cx='30' cy='45' r='20' fill='url(%23g)'/%3E%3Cpath d='M25 50 Q40 80 50 90 Q60 80 75 50' fill='url(%23g)'/%3E%3Ctext x='50' y='95' font-size='12' text-anchor='middle' fill='%23ff4d4d' font-family='Arial'%3E🌹%3C/text%3E%3C/svg%3E">
+    
+    <!-- Подключаем внешний CSS файл -->
+    <link rel="stylesheet" href="index.css">
+    
+    <style>
+        /* Дополнительные стили для центрирования правой таблицы */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            width: 100%;
+        }
+        
+        .right-table {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        .table-container {
+            width: 100%;
+        }
+        
+        .texture-row {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .texture-row:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Убираем левую таблицу и нижние кнопки */
+        .left-table, .bottom-nav1, .bottom-nav2 {
+            display: none;
+        }
+        
+        /* Стили для фона с сердечками */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .title {
+            text-align: center;
+            color: #ff4d4d;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+            margin-bottom: 40px;
+        }
+        
+        /* Стили для строк правой таблицы */
+        .texture-row {
+            padding: 25px 30px;
+            margin: 20px 0;
+            background: linear-gradient(145deg, #4a4f63, #2d3142);
+            border-radius: 60px;
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            box-shadow: 0 10px 0 #1a1e2b, 0 15px 30px rgba(255, 77, 77, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .texture-row:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 0 #1a1e2b, 0 20px 40px rgba(255, 77, 77, 0.5);
+        }
+        
+        .texture-row:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #1a1e2b, 0 10px 20px rgba(255, 77, 77, 0.3);
+        }
+        
+        .important {
+            background: linear-gradient(145deg, #ff4d4d, #ff6b6b);
+            font-size: 1.7em;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 0 #b33030, 0 15px 30px rgba(255, 77, 77, 0.5);
+        }
+        
+        .important:hover {
+            background: linear-gradient(145deg, #ff6666, #ff8585);
+            box-shadow: 0 15px 0 #b33030, 0 20px 40px rgba(255, 77, 77, 0.7);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1e2b 0%, #2d3349 100%);
+            margin: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: #f0f2f5;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            margin: 20px auto;
+        }
+        
+        /* Анимация для появления строк */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .texture-row {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        .texture-row:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+        
+        .texture-row:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        /* Декоративные элементы */
+        .container::before {
+            content: "❤️";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 60px;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+        
+        .container::after {
+            content: "🌹";
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 60px;
+            opacity: 0.1;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Фон с плавающими сердечками -->
+    <div class="background-hearts" id="backgroundHearts"></div>
+
+    <div class="container">
+        <!-- Заголовок по центру с сердечком -->
+        <h1 class="title">Всё, что я мог сделать для тебя❤️</h1>
+
+        <!-- Основной контент с централизованной правой таблицей -->
+        <div class="main-content">
+            <!-- Только правая таблица, централизованная -->
+            <div class="right-table">
+                <div class="table-container">
+                    <!-- Строки с ссылками на другие файлы в отдельных папках -->
+                    <div class="texture-row important" onclick="window.location.href='1414/index.html'">14 февраля❤️</div>
+                    <div class="texture-row" onclick="window.location.href='fashion/index.html'">тг сообщения💕</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для создания плавающих сердечек
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '110%';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.opacity = Math.random() * 0.5 + 0.2;
+            heart.style.animation = `floatUp ${Math.random() * 8 + 7}s linear forwards`;
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '9999';
+            heart.style.color = 'rgba(255, 77, 77, 0.3)';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 15000);
+        }
+        
+        // Создаем сердечки каждые 300ms
+        setInterval(createHeart, 300);
+        
+        // Добавляем стиль для анимации, если его нет
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.3;
+                }
+                100% {
+                    transform: translateY(-110vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Создаем несколько сердечек сразу при загрузке
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createHeart, i * 100);
+        }
+    </script>
+</body>
+</html>
