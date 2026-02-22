@@ -72,6 +72,63 @@
             flex-direction: column;
             gap: 8px;
         }
+        
+        /* Стили для шапки с кнопкой назад */
+        .header-with-back {
+            display: flex;
+            align-items: center;
+            padding-top: 50px;
+            padding-bottom: 10px;
+            background: var(--header-bg);
+            backdrop-filter: var(--liquid-blur);
+            -webkit-backdrop-filter: var(--liquid-blur);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+        
+        .back-button {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .back-button:active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-arrow {
+            font-size: 28px;
+            color: var(--tg-blue);
+            font-weight: 400;
+            line-height: 1;
+        }
+        
+        .header-center {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header-center .name { 
+            font-weight: 600; 
+            font-size: 17px; 
+            color: #000;
+        }
+        
+        .header-center .status { 
+            font-size: 12px; 
+            color: var(--tg-gray);
+        }
     </style>
 </head>
 <body>
@@ -80,10 +137,16 @@
         <!-- Dynamic Island -->
         <div class="notch"></div>
         
-        <!-- Заголовок чата -->
-        <div class="header">
-            <div class="name">Тоня</div>
-            <div class="status">в сети</div>
+        <!-- Заголовок чата с кнопкой назад -->
+        <div class="header-with-back">
+            <div class="back-button" onclick="window.location.href='../index.html'">
+                <span class="back-arrow">←</span>
+            </div>
+            <div class="header-center">
+                <div class="name">Тоня</div>
+                <div class="status">в сети</div>
+            </div>
+            <div style="width: 40px;"></div> <!-- Пустой div для баланса -->
         </div>
 
         <!-- Область сообщений -->
@@ -93,6 +156,9 @@
                 <div class="msg in">Доброе утро❤️</div>
                 <div class="msg out">доброе</div>
                 <div class="msg in">Лерааа</div>
+                <!-- Добавляем сообщения из скриншота для теста -->
+                <div class="msg in">Обожаю тебя</div>
+                <div class="msg in">Ты самая лучшая у меня!</div>
             </div>
             
             <!-- Индикатор печатания будет вставлен сюда скриптом -->
